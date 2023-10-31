@@ -6,6 +6,7 @@ async function registerRoutes(fastify, { api }) {
       querystring: {
         type: "object",
         properties: {
+          only_published: { type: "boolean" },
           filter: { type: "string" },
           start: { type: "number" },
           count: { type: "number" },
@@ -29,8 +30,7 @@ async function registerRoutes(fastify, { api }) {
       },
     },
     async handler(request) {
-      const { filter, start, count } = request.query;
-      return await api.news.getList({ filter, start, count });
+      return await api.news.getList(request.query);
     },
   });
 
